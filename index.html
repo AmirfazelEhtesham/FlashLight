@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>چراغ قوه</title>
+<style>
+body{margin:0;background:linear-gradient(135deg,#0f172a,#1e293b);font-family:tahoma;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.box{background:rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.2);padding:30px;border-radius:24px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+h2{color:#fff}.status{color:#cbd5e1;margin:10px}
+button{width:220px;height:70px;border:none;border-radius:18px;color:#fff;font-size:22px;margin:10px;cursor:pointer}
+#on{background:#22c55e}#off{background:#ef4444}
+footer{margin-top:20px;color:#ddd;font-size:14px}
+</style></head><body><div class="box"><h2>چراغ قوه</h2><div class="status" id="status">آماده</div>
+<button id="on">روشن کردن</button><br><button id="off">خاموش کردن</button>
+<footer>&copy; Hercule</footer></div>
+<script>
+let track=null;
+async function startFlashlight(){
+ try{
+ const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}}});
+ track=stream.getVideoTracks()[0];
+ const cap=track.getCapabilities?.();
+ if(cap&&cap.torch){
+   await track.applyConstraints({advanced:[{torch:true}]});
+   status.textContent="چراغ روشن شد";
+ }else status.textContent="Torch پشتیبانی نمی‌شود";
+ }catch(e){status.textContent="خطا: "+e.message;}
+}
+async function stopFlashlight(){
+ try{
+ if(track){
+   await track.applyConstraints({advanced:[{torch:false}]});
+   track.stop();
+   track=null;
+ }
+ status.textContent="چراغ خاموش شد";
+ }catch(e){status.textContent="خطا";}
+}
+on.onclick=startFlashlight;off.onclick=stopFlashlight;
+</script></body></html>
