@@ -6,55 +6,63 @@
 <title>چراغ قوه</title>
 <link href="https://fonts.googleapis.com/css?family=Lalezar&amp;subset=arabic" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;height:100%}
+html,body{margin:0;padding:0;min-height:100%}
 body{
-  background:#1a1a2e;
+  background:#3b82f6;
+  background:-webkit-linear-gradient(top,#0ea5e9,#6366f1);
+  background:linear-gradient(to bottom,#0ea5e9,#6366f1);
   font-family:'Lalezar',Tahoma,Arial,sans-serif;
-  color:#fff;
+  color:#1e293b;
+  min-height:100vh;
   display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;
   -webkit-align-items:center;align-items:center;
   -webkit-justify-content:center;justify-content:center;
 }
 .card{
-  width:90%;max-width:360px;
-  background:#16213e;
-  border:2px solid #0f3460;
-  -webkit-border-radius:24px;border-radius:24px;
-  padding:26px 18px;
+  width:90%;max-width:360px;margin:16px 0;
+  background:#fff;
+  -webkit-border-radius:26px;border-radius:26px;
+  -webkit-box-shadow:0 12px 40px rgba(15,23,42,.35);
+  box-shadow:0 12px 40px rgba(15,23,42,.35);
+  padding:24px 18px;
   text-align:center;
   -webkit-box-sizing:border-box;box-sizing:border-box;
 }
-h1{margin:0;font-size:36px;font-weight:normal;color:#ffd60a}
-#st{margin:8px 0 22px;min-height:24px;font-size:18px;color:#a8b2d1}
-button{
-  font-family:inherit;color:#fff;border:0;cursor:pointer;
-  font-size:20px;
-  -webkit-border-radius:30px;border-radius:30px;
+h1{margin:0;font-size:36px;font-weight:normal;color:#1d4ed8}
+#st{margin:6px 0 16px;min-height:24px;font-size:18px;color:#64748b}
+.lbl{margin:14px 0 6px;font-size:16px;color:#475569;text-align:right}
+.seg{
+  display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;
+  background:#e2e8f0;
+  -webkit-border-radius:16px;border-radius:16px;
+  padding:4px;
+}
+.seg button{
+  -webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
+  height:44px;margin:0 2px;border:0;cursor:pointer;
+  font-family:inherit;font-size:17px;color:#475569;
+  background:transparent;
+  -webkit-border-radius:12px;border-radius:12px;
   -webkit-tap-highlight-color:transparent;
 }
-button:active{opacity:.8}
-#on{
-  width:170px;height:170px;
-  font-size:30px;color:#3b2f00;
-  background:#ffd60a;
-  -webkit-border-radius:50%;border-radius:50%;
-  border:6px solid #fff3a3;
-  -webkit-box-shadow:0 0 30px 6px rgba(255,214,10,.5);
-  box-shadow:0 0 30px 6px rgba(255,214,10,.5);
+.seg button.act{
+  background:#fff;color:#1d4ed8;
+  -webkit-box-shadow:0 2px 6px rgba(15,23,42,.2);
+  box-shadow:0 2px 6px rgba(15,23,42,.2);
 }
-body.lit #on{
-  -webkit-box-shadow:0 0 60px 20px rgba(255,214,10,.9);
-  box-shadow:0 0 60px 20px rgba(255,214,10,.9);
+.seg button.dis{opacity:.4;cursor:default}
+.go{
+  display:block;width:100%;border:0;cursor:pointer;
+  font-family:inherit;color:#fff;
+  -webkit-border-radius:16px;border-radius:16px;
+  -webkit-tap-highlight-color:transparent;
 }
-.modes{margin:26px 0 14px;font-size:0}
-.modes button{
-  width:31%;margin:0 1%;height:46px;font-size:18px;
-  background:transparent;border:2px solid #4f6bb5;color:#cfd8ff;
-}
-.modes button.act{background:#4f6bb5;color:#fff}
-#off{width:100%;height:48px;background:#e63946}
-.foot{margin-top:18px;font-size:15px;color:#8892b0}
-.foot a{color:#ffd60a;text-decoration:none;border-bottom:1px dotted #ffd60a}
+.go:active{opacity:.85}
+#on{height:68px;font-size:28px;margin-top:20px;background:#16a34a}
+body.lit #on{background:#15803d}
+#off{height:50px;font-size:20px;margin-top:10px;background:#dc2626}
+.foot{margin-top:18px;font-size:15px;color:#94a3b8}
+.foot a{color:#1d4ed8;text-decoration:none}
 #scr{
   position:fixed;top:0;right:0;bottom:0;left:0;
   z-index:9;display:none;background:#fff;cursor:pointer;
@@ -69,28 +77,49 @@ body.lit #on{
 <div class="card">
   <h1>چراغ قوه</h1>
   <div id="st">آماده</div>
-  <button id="on">روشن</button>
-  <div class="modes">
-    <button data-m="strobe">چشمک‌زن</button><button data-m="sos">SOS</button><button data-m="screen">نور صفحه</button>
+
+  <div class="lbl">نوع نور</div>
+  <div class="seg" id="parts">
+    <button data-p="torch">چراغ قوه</button>
+    <button data-p="screen">صفحه سفید</button>
+    <button data-p="both">هر دو</button>
   </div>
-  <button id="off">خاموش کردن</button>
-  <div class="foot">&copy; <a href="https://amirfazelehtesham.github.io" target="_blank" rel="noopener">AmirFazel Ehtesham</a></div>
+
+  <div class="lbl">حالت چراغ قوه</div>
+  <div class="seg" id="effects">
+    <button data-e="steady">ثابت</button>
+    <button data-e="strobe">چشمک‌زن</button>
+    <button data-e="sos">SOS</button>
+  </div>
+
+  <button class="go" id="on">روشن کردن</button>
+  <button class="go" id="off">خاموش کردن</button>
+
+  <div class="foot">&copy; <a href="https://amirfazelehtesham.github.io">AmirFazel Ehtesham</a></div>
 </div>
 <div id="scr"><span>برای خاموش کردن لمس کنید</span></div>
 
 <script>
 var st=document.getElementById('st'),
     scr=document.getElementById('scr'),
-    onBtn=document.getElementById('on'),
-    offBtn=document.getElementById('off'),
-    modeBtns=document.querySelectorAll('[data-m]'),
+    pBtns=document.querySelectorAll('[data-p]'),
+    eBtns=document.querySelectorAll('[data-e]'),
+    part='both',effect='steady',
     stream=null,track=null,torchOk=false,timer=null,wake=null,U=200;
 
 function say(t){st.textContent=t}
-function mark(m){
-  for(var i=0;i<modeBtns.length;i++){
-    var b=modeBtns[i];
-    if(b.getAttribute('data-m')===m){b.className='act'}else{b.className=''}
+
+function refresh(){
+  var i,b;
+  for(i=0;i<pBtns.length;i++){
+    b=pBtns[i];
+    b.className=(b.getAttribute('data-p')===part)?'act':'';
+  }
+  for(i=0;i<eBtns.length;i++){
+    b=eBtns[i];
+    var c=(b.getAttribute('data-e')===effect)?'act':'';
+    if(part==='screen'){c+=' dis'}
+    b.className=c;
   }
 }
 function getCam(){
@@ -116,27 +145,25 @@ function ensureCamera(){
   return getCam().then(function(s){
     stream=s;
     track=s.getVideoTracks()[0];
-    var cap=track&&track.getCapabilities?track.getCapabilities():null;
+    var cap=(track&&track.getCapabilities)?track.getCapabilities():null;
     torchOk=!!(cap&&cap.torch);
-    if(!torchOk){release();say('فلاش پشتیبانی نمی‌شود، نور صفحه روشن شد')}
+    if(!torchOk){release()}
   }).catch(function(){
     stream=null;track=null;torchOk=false;
-    say('دسترسی به فلاش ممکن نیست، نور صفحه روشن شد');
   });
 }
-function out(on){
+function torch(on){
   if(torchOk&&track){
     var p=track.applyConstraints({advanced:[{torch:on}]});
     if(p&&p.catch){p.catch(function(){})}
   }
-  scr.style.display=on?'block':'none';
 }
 function run(steps){
   var i=0;
   (function tick(){
     var s=steps[i%steps.length];
     i++;
-    out(s[0]);
+    torch(s[0]);
     timer=setTimeout(tick,s[1]);
   })();
 }
@@ -149,28 +176,47 @@ function sosSteps(){
   s.push([0,4*U]);
   return s;
 }
-function begin(m){
+function begin(){
   clearTimeout(timer);
-  mark(m);
   document.body.className='lit';
-  var ready=(m==='screen')?Promise.resolve():ensureCamera();
+  var needTorch=(part!=='screen'),
+      needScreen=(part!=='torch'),
+      ready;
+  if(needTorch){
+    ready=ensureCamera();
+  }else{
+    torch(false);release();torchOk=false;
+    ready=Promise.resolve();
+  }
   ready.then(function(){
-    if(navigator.wakeLock&&navigator.wakeLock.request){
-      navigator.wakeLock.request('screen').then(function(w){wake=w}).catch(function(){});
+    var fallback=false;
+    if(needTorch&&!torchOk){fallback=true;needScreen=true}
+
+    if(needScreen){
+      scr.style.display='block';
+      if(navigator.wakeLock&&navigator.wakeLock.request){
+        navigator.wakeLock.request('screen').then(function(w){wake=w}).catch(function(){});
+      }
+      var de=document.documentElement,
+          fs=de.requestFullscreen||de.webkitRequestFullscreen||de.mozRequestFullScreen;
+      if(fs){try{var r=fs.call(de);if(r&&r.catch){r.catch(function(){})}}catch(e){}}
+    }else{
+      scr.style.display='none';
     }
-    var de=document.documentElement,
-        fs=de.requestFullscreen||de.webkitRequestFullscreen||de.mozRequestFullScreen;
-    if(fs){try{var r=fs.call(de);if(r&&r.catch){r.catch(function(){})}}catch(e){}}
-    if(m==='strobe'){say('چشمک‌زن فعال است');run([[1,90],[0,90]])}
-    else if(m==='sos'){say('SOS فعال است');run(sosSteps())}
-    else if(m==='screen'){say('نور صفحه فعال است');out(true)}
-    else{if(torchOk){say('نور با حداکثر توان روشن شد')}else if(!stream){}out(true)}
+
+    if(fallback){say('فلاش در دسترس نیست، فقط صفحه سفید روشن شد');return}
+    if(!needTorch){say('صفحه سفید روشن شد');return}
+
+    if(effect==='strobe'){say('چراغ قوه چشمک می‌زند');run([[1,90],[0,90]])}
+    else if(effect==='sos'){say('SOS فعال است');run(sosSteps())}
+    else{say('چراغ قوه روشن شد');torch(true)}
   });
 }
 function stop(){
   clearTimeout(timer);
-  out(false);
-  release();torchOk=false;mark('');
+  torch(false);
+  release();torchOk=false;
+  scr.style.display='none';
   document.body.className='';
   if(wake&&wake.release){wake.release();wake=null}
   var ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen;
@@ -179,14 +225,29 @@ function stop(){
   }
   say('چراغ خاموش شد');
 }
+function isOn(){return document.body.className==='lit'}
 
-onBtn.onclick=function(){begin('steady')};
-offBtn.onclick=stop;
+(function(){
+  var i;
+  for(i=0;i<pBtns.length;i++){
+    (function(b){b.onclick=function(){
+      part=b.getAttribute('data-p');refresh();
+      if(isOn()){begin()}
+    }})(pBtns[i]);
+  }
+  for(i=0;i<eBtns.length;i++){
+    (function(b){b.onclick=function(){
+      if(part==='screen'){return}
+      effect=b.getAttribute('data-e');refresh();
+      if(isOn()){begin()}
+    }})(eBtns[i]);
+  }
+})();
+document.getElementById('on').onclick=begin;
+document.getElementById('off').onclick=stop;
 scr.onclick=stop;
-for(var i=0;i<modeBtns.length;i++){
-  (function(b){b.onclick=function(){begin(b.getAttribute('data-m'))}})(modeBtns[i]);
-}
 document.addEventListener('visibilitychange',function(){if(document.hidden){stop()}});
+refresh();
 </script>
 </body>
- </html>
+</html>
